@@ -24,14 +24,13 @@
     </template>
 
     <div class="row mt-5" v-if="hasProducts">
-      <div v-for="product in products" :key="product.id" class="col-sm-3">
+      <div v-for="(product, index) in products" :key="index" class="col-sm-3">
         <div class="card mb-3">
           <div class="card-body">
             <div class="form-check">
               <input
                 class="form-check-input delete-checkbox"
                 type="checkbox"
-                v-model="form.ids"
                 :value="product.id"
                 :id="`checkbox${product.id}`"
               />
@@ -73,9 +72,6 @@ export default {
       products: [],
       massDeleteError: false,
       deleteErrorMessage: "",
-      form: {
-        ids: [],
-      },
       primaryButton: {
         name: "ADD",
         action: "showAddProductPage",
@@ -89,7 +85,7 @@ export default {
   },
   computed: {
     hasProducts() {
-      return Object.keys(this.products).length > 0;
+      return this.products.length > 0;
     },
   },
   mounted() {
@@ -135,13 +131,6 @@ export default {
         }
       }
 
-      let checkboxes = document.getElementsByClassName("delete-checkbox");
-      for (var i = checkboxes.length; i--; ) {
-        if (checkboxes[i].checked === true) {
-          checkboxes[i].parentNode.removeChild(checkboxes[i]);
-        }
-      }
-
       request({
         method: "post",
         url: "/delete-products",
@@ -152,7 +141,12 @@ export default {
       })
         .then(() => {
           //window.location.href = '/';
-          this.getAllProducts();
+          let checkboxes = document.getElementsByClassName("delete-checkbox");
+          for (var i = checkboxes.length; i--; ) {
+            if (checkboxes[i].checked === true) {
+              checkboxes[i].parentNode.removeChild(checkboxes[i]);
+            }
+          }
         })
         .catch(() => {
           this.deleteErrorMessage = "Something went wrong, try again later.";
