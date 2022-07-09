@@ -59,18 +59,28 @@
 </template>
 
 <script>
-  import Header from "@/components/Header.vue"
+  import Header from "@/components/Header.vue";
+  import { shallowRef } from 'vue'
   import DVD from "@/components/DVD.vue";
   import Furniture from "@/components/Furniture.vue";
   import Book from "@/components/Book.vue";
   import {request} from "../request.js";
 
+  let form = {
+   productType: {},
+   attributeValue: {}
+  }
+
+  let errors = {}
+
   export default {
-    components: {DVD, Book, Furniture, Header,},
+    components: {Header,},
     data() {
     return {
       component: {
-        DVD,Book,Furniture
+        DVD: shallowRef(DVD),
+        Book: shallowRef(Book),
+        Furniture: shallowRef(Furniture)
       },
       addProductError: false,
       addProductErrorMessage: "",
@@ -79,12 +89,8 @@
         {key: 'Weight', unit: 'KG', id: 'Book', measureCount: 1},
         {key: 'Dimension', unit: 'CM', id: 'Furniture', measureCount: 3}
       ],
-      form : {
-        productType: {},
-        attributeValue: {}
-      },
-      errors : {
-      },
+      form : form,
+      errors : errors,
       primaryButton: {
         name: "SAVE",
         action: "addProduct",

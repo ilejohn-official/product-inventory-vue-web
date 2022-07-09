@@ -78,11 +78,5 @@ export default {
       default: {},
     },
   },
-  data() {
-    return {
-      form: form,
-      errors: errors,
-    };
-  },
 };
 </script>
