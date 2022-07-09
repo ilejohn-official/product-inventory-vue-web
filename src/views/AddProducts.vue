@@ -140,7 +140,7 @@
       return this.objLength(this.errors) > 0
     },
     objLength(object) {
-      return Object.keys(object).length
+      return Object.keys(object ?? {}).length
     },
     addProduct(){
       this.validateForm()
@@ -164,15 +164,15 @@
         },
         data: {...form, attributeValue : JSON.stringify(form.attributeValue)},
       })
-      .then(() => {
-        window.location.href = '/';
+      .then((response) => {
+        this.showProductPage()
       })
       .catch( (error) => {
-        const err = error.response.data.data;
-       
+        const err = error.response?.data?.errors;
+
         if (this.objLength(err) > 0){
           for (const key in err){
-            this.errors[key] = err[key]
+            this.errors[key] = err[key].join()
           }
 
           setTimeout(() => {
@@ -183,7 +183,7 @@
           }, 5000);
 
         } else {
-          this.addProductErrorMessage = "Something went wrong, try again later."
+          this.addProductErrorMessage = "Something went wrong, Please check your input and try again."
           this.addProductError = true;
         }
       })
