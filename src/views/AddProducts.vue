@@ -8,12 +8,11 @@
   <main>
     <div v-if="addProductError" class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
       <strong>Error!</strong> {{addProductErrorMessage}}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
       </button>
     </div>
 
-    <form id="product_form">
+    <form id="product_form" class="d-grid gap-2">
         <div class="form-group row">
           <label for="sku" class="col-sm-2 col-form-label">SKU</label>
           <div class="col-sm-4">
@@ -44,8 +43,8 @@
         <div class="form-group row">
             <label for="productType" class="col-sm-2 col-form-label">Type Switcher</label>
             <div class="col-sm-4">
-                <select name="productType" @change="clearAttribute($event)" id="productType" v-model="form.productType" class="form-control" :class="{'is-invalid' : errors.attributeValue }" >
-                    <option disabled selected value="">Choose...</option>
+                <select name="productType" @change="clearAttribute($event)" id="productType" v-model="form.productType" class="form-select" :class="{'is-invalid' : errors.attributeValue }" >
+                    <option disabled selected>Choose...</option>
                     <option v-for="type in productTypes" :key="type.key" :value="type">{{ type.id }}</option>
                 </select>
                 <div class="invalid-feedback">

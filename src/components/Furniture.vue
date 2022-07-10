@@ -1,5 +1,5 @@
 <template>
-  <div id="Furniture">
+  <div id="Furniture" class="d-grid gap-2">
     <div class="form-group row">
       <label for="height" class="col-sm-2 col-form-label">Height (CM)</label>
       <div class="col-sm-4">

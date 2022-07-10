@@ -14,11 +14,10 @@
         <strong>Error!</strong> {{ deleteErrorMessage }}
         <button
           type="button"
-          class="close"
-          data-dismiss="alert"
+          class="btn-close"
+          data-bs-dismiss="alert"
           aria-label="Close"
         >
-          <span aria-hidden="true">&times;</span>
         </button>
       </div>
     </template>
@@ -125,11 +124,9 @@ export default {
         return;
       }
 
-      for (const product in this.products) {
-        if (ids.includes(this.products[product].id)) {
-          delete this.products[product];
-        }
-      }
+      this.products = this.products.filter((product) => {
+        !ids.includes(product.id)
+      });
 
       request({
         method: "post",
@@ -140,13 +137,13 @@ export default {
         data: { ids: JSON.stringify(ids) },
       })
         .then(() => {
-          //window.location.href = '/';
-          let checkboxes = document.getElementsByClassName("delete-checkbox");
-          for (var i = checkboxes.length; i--; ) {
-            if (checkboxes[i].checked === true) {
-              checkboxes[i].parentNode.removeChild(checkboxes[i]);
-            }
-          }
+         
+          // let checkboxes = document.getElementsByClassName("delete-checkbox");
+          // for (var i = checkboxes.length; i--; ) {
+          //   if (checkboxes[i].checked === true) {
+          //     checkboxes[i].parentNode.removeChild(checkboxes[i]);
+          //   }
+          // }
         })
         .catch(() => {
           this.deleteErrorMessage = "Something went wrong, try again later.";
