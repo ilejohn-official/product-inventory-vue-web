@@ -55,7 +55,7 @@
     </div>
     <div v-else>
       <p class="text-center text-muted font-italic">
-        No products added. Click add to add products
+        No product(s) added. Click "ADD" to add products
       </p>
     </div>
   </main>
@@ -124,8 +124,8 @@ export default {
         return;
       }
 
-      this.products = this.products.filter((product) => {
-        !ids.includes(product.id)
+      this.products = this.products.filter(({id}) => {
+        !ids.includes(id)
       });
 
       request({
@@ -137,13 +137,6 @@ export default {
         data: { ids: JSON.stringify(ids) },
       })
         .then(() => {
-         
-          // let checkboxes = document.getElementsByClassName("delete-checkbox");
-          // for (var i = checkboxes.length; i--; ) {
-          //   if (checkboxes[i].checked === true) {
-          //     checkboxes[i].parentNode.removeChild(checkboxes[i]);
-          //   }
-          // }
         })
         .catch(() => {
           this.deleteErrorMessage = "Something went wrong, try again later.";
