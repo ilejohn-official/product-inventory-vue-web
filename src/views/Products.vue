@@ -124,8 +124,8 @@ export default {
         return;
       }
 
-      this.products = this.products.filter(({id}) => {
-        !ids.includes(id)
+      this.products = this.products.filter((product) => {
+        !ids.includes(product.id)
       });
 
       request({
