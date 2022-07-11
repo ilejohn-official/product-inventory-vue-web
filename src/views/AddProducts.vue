@@ -91,11 +91,11 @@
       form : form,
       errors : errors,
       primaryButton: {
-        name: "SAVE",
+        name: "Save",
         action: "addProduct",
       },
       redButton: {
-        name: "CANCEL",
+        name: "Cancel",
         action: "showProductPage",
       },
     }
