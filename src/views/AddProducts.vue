@@ -188,7 +188,7 @@
       })
     },
     showProductPage() {
-      this.$router.push("/");
+      window.location.href = "/"
     },
   }
   }
